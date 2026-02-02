@@ -7,7 +7,7 @@ This is an utility useful to automate some boring stuff if you develop in C++ pr
 ### Requirements
 - python (3.x) being installed and in PATH
 
-### How to install it
+### How to use it (Local Development)
 1. copy the `bin/` folder and paste it inside your **_.config/zed/_** folder (or **_%APPDATA%\Roaming\Zed_** if you are from Windows)
 2. append/add this task i you global or project task
  
@@ -22,12 +22,25 @@ _this is an example of a `tasks.json` task to create a new class:_
 ]
 
 ```
+3. invoke it in Zed using `ctrl+shift+p`
 
-### How to use it
 
-1. invoke it in Zed using `ctrl+shift+p`
-2. fill the needed data using terminal prompt
-3. that's it
+### How to use it: (w/ DevContainer)
+1. in you `devcontainer.json` add the following  entry:
+```Json
+"mounts": ["source=${localEnv:HOME}/.config/zed/bin/,target=/host-tools/,type=bind,consistency=cached"]
+
+```
+2. adjust or add a new your task in `tasks.json` for the devcontainer:
+```Json
+[
+    {
+        "label": "Create C++ Class (devcontainer)",
+        "command": "python3 /host-tools/cpp_cli.py --function 'create-class' --zed --rootpath $ZED_WORKTREE_ROOT"
+    }
+]
+```
+
 
 ### ToDo:
 - [ ] Add class delete functionality
